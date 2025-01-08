@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OnBoard"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+
+    >
+
+    <ImageView
+        android:id="@+id/book_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bockicononboard"
+        android:layout_gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_centerHorizontal="true"
+        />
+
+
+    <TextView
+        android:id="@+id/booktext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BOoK"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/book_icon"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/_15ssp"
+
+        />
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today a reader, tomorrow a leader."
+        android:textColor="@color/black"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/booktext"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/_15ssp"
+
+        />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_100sdp"
+        android:src="@drawable/readbook_onborad" />
+
+    <Button
+        android:id="@+id/startbt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Let’s read a BOoK"
+        android:clickable="true"
+        android:background="@drawable/ripple_effect"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_30sdp"
+        />
+
+
+
+
+
+
+
+
+</RelativeLayout>
