@@ -39,11 +39,33 @@
         android:layout_marginTop="@dimen/_10sdp"
         >
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edemail"
+            android:id="@+id/edemail_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
+            android:textSize="16sp"
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edaddresslay"
+        android:layout_below="@+id/edemaillay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ed_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress"
             android:textSize="16sp"
             />
 
@@ -53,7 +75,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edpasslay"
-        android:layout_below="@+id/edemaillay"
+        android:layout_below="@+id/edaddresslay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
@@ -63,7 +85,7 @@
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edpass"
+            android:id="@+id/edpass_reg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Enter your password"
@@ -83,6 +105,7 @@
         android:layout_below="@id/edpasslay"
         android:text="Accept the terms and conditions of service"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
 
 
         />
@@ -97,11 +120,10 @@
         android:background="@drawable/ripple_effect"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
-
         android:layout_below="@+id/checkbox_term"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+
         />
 
 

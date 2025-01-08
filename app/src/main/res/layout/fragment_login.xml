@@ -63,6 +63,7 @@
         android:layout_marginLeft="@dimen/_20sdp"
 
 
+
         />
 
     <Button
@@ -77,7 +78,7 @@
         android:layout_below="@id/checkbox_rememberme"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         />
 
     <TextView
@@ -87,7 +88,7 @@
         android:text="Forgot Password?"
         android:textColor="@color/orange"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:textSize="@dimen/_13ssp"
         android:layout_marginRight="@dimen/_20sdp"
         android:layout_below="@+id/loginbt"
