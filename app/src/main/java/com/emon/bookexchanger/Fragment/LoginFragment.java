@@ -1,10 +1,6 @@
 package com.emon.bookexchanger.Fragment;
 
-import static android.content.Context.MODE_PRIVATE;
-
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,18 +13,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.emon.bookexchanger.Api_Url;
+import com.emon.bookexchanger.Forget_password;
 import com.emon.bookexchanger.MainActivity;
 import com.emon.bookexchanger.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -43,6 +38,7 @@ import java.util.Map;
 public class LoginFragment extends Fragment {
 
     public TextInputEditText edemail, edpass;
+    TextView forgetbt;
     TextInputLayout edpasslay;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -56,6 +52,7 @@ public class LoginFragment extends Fragment {
         edemail = view.findViewById(R.id.edemail);
         edpass = view.findViewById(R.id.edpass);
         edpasslay = view.findViewById(R.id.edpasslay);
+        forgetbt = view.findViewById(R.id.forgetbt);
         checkboxRememberMe = view.findViewById(R.id.checkbox_rememberme); // Initialize Remember Me checkbox
 
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
@@ -108,6 +105,12 @@ public class LoginFragment extends Fragment {
                 // Call login request
                 LogigRequest(edemail.getText().toString(), edpass.getText().toString());
             }
+        });
+
+        forgetbt.setOnClickListener(v -> {
+
+            startActivity(new Intent(getContext(), Forget_password.class));
+
         });
 
         edpass.addTextChangedListener(new android.text.TextWatcher() {
@@ -219,24 +222,5 @@ public class LoginFragment extends Fragment {
     }
 
 
-    private void setupClearFocusListeners(View view) {
-        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-        @SuppressLint("ClickableViewAccessibility") View.OnTouchListener clearFocusTouchListener = (v, event) -> {
-
-            edemail.clearFocus();
-            edpass.clearFocus();
-
-
-            if (imm != null) {
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-            }
-
-            return false;
-        };
-
-        view.findViewById(R.id.main).setOnTouchListener(clearFocusTouchListener);
-        /*view.findViewById(R.id.linerlay_set).setOnTouchListener(clearFocusTouchListener);
-        view.findViewById(R.id.scroll_set).setOnTouchListener(clearFocusTouchListener);*/
-    }
 }
