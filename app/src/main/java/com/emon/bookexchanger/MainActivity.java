@@ -1,19 +1,58 @@
 package com.emon.bookexchanger;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.view.View;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.emon.bookexchanger.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
+    ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        SharedPreferences.Editor editor = prefs.edit();
+
+
+        String email = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getString("email",  "");
+        boolean OnBoard = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getBoolean("OnBoard",  false);
+
+
+
+        //------------------------------------------------------------------------
+        if (OnBoard == false) {
+            startActivity(new Intent(this, OnBoard.class));
+            finish();
+        } else {
+            if (email.length() <= 0) {
+                startActivity(new Intent(this, Login_Register.class));
+                finish();
+            }
+        }
+        //------------------------------------------------------------------------
+
+
+        binding.logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editor.putString("email", "");
+                editor.apply();
+                startActivity(new Intent(MainActivity.this, Login_Register.class));
+                finish();
+            }
+        });
+
 
 
 

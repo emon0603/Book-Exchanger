@@ -1,17 +1,12 @@
 package com.emon.bookexchanger;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class OnBoard extends AppCompatActivity {
 
@@ -23,7 +18,11 @@ public class OnBoard extends AppCompatActivity {
         Button startButton = findViewById(R.id.startbt);
 
         startButton.setOnClickListener(v -> {
-           startActivity(new Intent(OnBoard.this, Login.class));
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("OnBoard", true);
+            editor.apply();
+           startActivity(new Intent(OnBoard.this, Login_Register.class));
            finish();
         });
 

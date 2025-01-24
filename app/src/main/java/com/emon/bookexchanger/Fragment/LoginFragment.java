@@ -2,22 +2,27 @@ package com.emon.bookexchanger.Fragment;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -31,10 +36,13 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class LoginFragment extends Fragment {
 
-    TextInputEditText edemail, edpass;
+    public TextInputEditText edemail, edpass;
     TextInputLayout edpasslay;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
@@ -50,13 +58,13 @@ public class LoginFragment extends Fragment {
         edpasslay = view.findViewById(R.id.edpasslay);
         checkboxRememberMe = view.findViewById(R.id.checkbox_rememberme); // Initialize Remember Me checkbox
 
-        sharedPreferences = requireActivity().getSharedPreferences(String.valueOf(R.string.app_name), MODE_PRIVATE);
-        editor = sharedPreferences.edit();
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         // Restore saved credentials
-        String savedEmail = sharedPreferences.getString("remember_email", "");
-        String savedPassword = sharedPreferences.getString("remember_password", "");
-        boolean isRemembered = sharedPreferences.getBoolean("is_remembered", false);
+        String savedEmail = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("remember_email", "");
+        String savedPassword = PreferenceManager.getDefaultSharedPreferences(getContext()).getString("remember_password", "");
+        boolean isRemembered = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean("is_remembered", false);
 
         if (isRemembered) {
             edemail.setText(savedEmail);
@@ -89,6 +97,7 @@ public class LoginFragment extends Fragment {
                     editor.putString("remember_email", edemail.getText().toString());
                     editor.putString("remember_password", edpass.getText().toString());
                     editor.putBoolean("is_remembered", true);
+
                 } else {
                     editor.putString("remember_email", "");
                     editor.putString("remember_password", "");
@@ -137,8 +146,8 @@ public class LoginFragment extends Fragment {
 
         JSONObject requestData = new JSONObject();
         try {
-            requestData.put("UserEmail", email);
-            requestData.put("UserPassword", password);
+            requestData.put("email", email);
+            requestData.put("password", password);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,18 +158,24 @@ public class LoginFragment extends Fragment {
                         progressDialog.dismiss();
                         Log.d("Volley Response", response.toString());
 
-                        String message = response.getString("message");
+                        JSONObject jsonResponse = new JSONObject(String.valueOf(response));
+                        boolean success = jsonResponse.getBoolean("success");
+                        String message = jsonResponse.getString("message");
 
-                        if (message.contains("User found")) {
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+
+                        if (success) {
+
+                            sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("email", edemail.getText().toString());
-                            editor.putString("pass", edpass.getText().toString());
                             editor.apply();
 
                             startActivity(new Intent(getContext(), MainActivity.class));
                             requireActivity().finish();
 
-                            Toast.makeText(getContext(), "Login successful", Toast.LENGTH_SHORT).show();
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -189,8 +204,39 @@ public class LoginFragment extends Fragment {
                         Log.d("Error", "No network response");
                     }
                 }
-        );
+        ){
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "test");
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+        };
 
         Volley.newRequestQueue(getContext()).add(jsonObjectRequest);
+    }
+
+
+    private void setupClearFocusListeners(View view) {
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        @SuppressLint("ClickableViewAccessibility") View.OnTouchListener clearFocusTouchListener = (v, event) -> {
+
+            edemail.clearFocus();
+            edpass.clearFocus();
+
+
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            }
+
+            return false;
+        };
+
+        view.findViewById(R.id.main).setOnTouchListener(clearFocusTouchListener);
+        /*view.findViewById(R.id.linerlay_set).setOnTouchListener(clearFocusTouchListener);
+        view.findViewById(R.id.scroll_set).setOnTouchListener(clearFocusTouchListener);*/
     }
 }
