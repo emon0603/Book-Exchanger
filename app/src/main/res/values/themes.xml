@@ -27,4 +27,11 @@
     </style>
 
     <style name="Theme.BookExchanger" parent="Base.Theme.BookExchanger" />
+
+
+    <style name="ToolbarTitleBold" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 </resources>

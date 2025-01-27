@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_book_icon"
+        android:icon="@drawable/add_book"
+        android:title="Add Book"
+        app:showAsAction="always|withText"
+
+        />
+
+
+    <item
+        android:id="@+id/chart_icon"
+        android:icon="@drawable/chart"
+        android:title="Chart"
+        app:showAsAction="always|withText"
+
+        />
+
+
+
+    <item
+        android:id="@+id/profile_icon"
+        android:icon="@drawable/profile"
+        android:title="Profile"
+        app:showAsAction="always|withText"
+
+        />
+
+</menu>

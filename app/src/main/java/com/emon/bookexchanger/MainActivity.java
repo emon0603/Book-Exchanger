@@ -9,6 +9,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.emon.bookexchanger.Fragment.Dashboard;
+import com.emon.bookexchanger.Fragment.LoginFragment;
 import com.emon.bookexchanger.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -43,15 +45,9 @@ public class MainActivity extends AppCompatActivity {
         //------------------------------------------------------------------------
 
 
-        binding.logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                editor.putString("email", "");
-                editor.apply();
-                startActivity(new Intent(MainActivity.this, Login_Register.class));
-                finish();
-            }
-        });
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new Dashboard()).commit();
+
 
 
 
